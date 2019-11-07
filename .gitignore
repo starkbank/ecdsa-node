@@ -1,0 +1,6 @@
+#Private and public keys
+*.key
+*.pem
+privateKey.pem
+publicKey.pem
+
