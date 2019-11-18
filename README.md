@@ -147,7 +147,8 @@ npm install @starkbank/ecdsa-node
 ```
 
 ### Run all unit tests
+Run tests in [Mocha framework]: https://mochajs.org/#getting-started
 
 ```
-node tests/start.js
+node test
 ```
