@@ -37,10 +37,10 @@ describe("openSSL test", function() {
             let privateKeyPem = File.read("test/privateKey.pem");
             let privateKey = PrivateKey.fromPem(privateKeyPem);
             let message = File.read("test/message.txt");
-            let signature = Ecdsa.sign(message=message, privateKey=privateKey);
+            let signature = Ecdsa.sign(message, privateKey);
             let publicKey = privateKey.publicKey();
 
-            assert.equal(Ecdsa.verify(message=message, signature=signature, publicKey=publicKey), true);
+            assert.equal(Ecdsa.verify(message, signature, publicKey), true);
         });
     });
     describe("#testVerifySignature()", function() {
@@ -48,12 +48,12 @@ describe("openSSL test", function() {
             // openssl ec -in privateKey.pem -pubout -out publicKey.pem
             let publicKeyPem = File.read("test/publicKey.pem");
             // openssl dgst -sha256 -sign privateKey.pem -out signature.binary message.txt
-            let signatureDer = File.read("test/signatureDer.txt", "rb");
+            let signatureDer = File.read("test/signatureDer.txt", "binary");
             let message = File.read("test/message.txt");
             let publicKey = PublicKey.fromPem(publicKeyPem);
-            let signature = Signature.fromDer(string=signatureDer);
+            let signature = Signature.fromDer(signatureDer);
 
-            assert.equal(Ecdsa.verify(message=message, signature=signature, publicKey=publicKey), true);
+            assert.equal(Ecdsa.verify(message, signature, publicKey), true);
         });
     });
 });
@@ -64,28 +64,28 @@ describe("PrivateKey test", function() {
             let pem = privateKey1.toPem();
             let privateKey2 = PrivateKey.fromPem(pem);
 
-            assert.equal(privateKey1.secret, privateKey2.secret);
-            assert.equal(privateKey1.curve, privateKey2.curve);
+            assert.equal(String(privateKey1.secret), String(privateKey2.secret));
+            assert.equal(String(privateKey1.curve), String(privateKey2.curve));
         });
     });
     describe("#testDerConversion()", function() {
         it("should validate DER generation and convertion", function() {
             let privateKey1 = new PrivateKey();
             let der = privateKey1.toDer();
-            let privateKey2 = PrivateKey.fromDer(toBytes(der));
+            let privateKey2 = PrivateKey.fromDer(der);
 
-            assert.equal(privateKey1.secret, privateKey2.secret);
-            assert.equal(privateKey1.curve, privateKey2.curve);
+            assert.equal(String(privateKey1.secret), String(privateKey2.secret));
+            assert.equal(String(privateKey1.curve), String(privateKey2.curve));
         });
     });
     describe("#testStringConversion()", function() {
         it("should validate private-key-string generation and convertion", function() {
             let privateKey1 = new PrivateKey();
             let string = privateKey1.toString();
-            let privateKey2 = PrivateKey.fromString(toBytes(string));
+            let privateKey2 = PrivateKey.fromString(string);
 
-            assert.equal(privateKey1.secret, privateKey2.secret);
-            assert.equal(privateKey1.curve, privateKey2.curve);
+            assert.equal(String(privateKey1.secret), String(privateKey2.secret));
+            assert.equal(String(privateKey1.curve), String(privateKey2.curve));
         });
     });
 });
@@ -107,7 +107,7 @@ describe("PublicKey test", function() {
             let privateKey = new PrivateKey();
             let publicKey1 = privateKey.publicKey();
             let der = publicKey1.toDer();
-            let publicKey2 = PublicKey.fromDer(toBytes(der));
+            let publicKey2 = PublicKey.fromDer(der);
 
             assert.equal(publicKey1.point.x, publicKey2.point.x);
             assert.equal(publicKey1.point.y, publicKey2.point.y);
@@ -119,7 +119,7 @@ describe("PublicKey test", function() {
             let privateKey = new PrivateKey();
             let publicKey1 = privateKey.publicKey();
             let string = publicKey1.toString();
-            let publicKey2 = PublicKey.fromString(toBytes(string));
+            let publicKey2 = PublicKey.fromString(string);
 
             assert.equal(publicKey1.point.x, publicKey2.point.x);
             assert.equal(publicKey1.point.y, publicKey2.point.y);
@@ -134,7 +134,7 @@ describe("Signature test", function() {
             let message = "This is a text message";
             let signature1 = Ecdsa.sign(message, privateKey);
             let der = signature1.toDer()
-            let signature2 = Signature.fromDer(toBytes(der));
+            let signature2 = Signature.fromDer(der);
 
             assert.equal(signature1.r, signature2.r);
             assert.equal(signature1.s, signature2.s);
