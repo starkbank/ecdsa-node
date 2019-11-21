@@ -1,6 +1,6 @@
 {
   "name": "@cdottori/ecdsa-node",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "fast openSSL-compatible implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA)",
   "main": "index.js",
   "directories": {
