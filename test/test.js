@@ -97,8 +97,8 @@ describe("PublicKey test", function() {
             let pem = publicKey1.toPem();
             let publicKey2 = PublicKey.fromPem(pem);
 
-            assert.equal(publicKey1.point.x, publicKey2.point.x);
-            assert.equal(publicKey1.point.y, publicKey2.point.y);
+            assert.equal(String(publicKey1.point.x), String(publicKey2.point.x));
+            assert.equal(String(publicKey1.point.y), String(publicKey2.point.y));
             assert.equal(publicKey1.curve, publicKey2.curve);
         });
     });
@@ -109,8 +109,8 @@ describe("PublicKey test", function() {
             let der = publicKey1.toDer();
             let publicKey2 = PublicKey.fromDer(der);
 
-            assert.equal(publicKey1.point.x, publicKey2.point.x);
-            assert.equal(publicKey1.point.y, publicKey2.point.y);
+            assert.equal(String(publicKey1.point.x), String(publicKey2.point.x));
+            assert.equal(String(publicKey1.point.y), String(publicKey2.point.y));
             assert.equal(publicKey1.curve, publicKey2.curve);
         });
     });
@@ -121,8 +121,8 @@ describe("PublicKey test", function() {
             let string = publicKey1.toString();
             let publicKey2 = PublicKey.fromString(string);
 
-            assert.equal(publicKey1.point.x, publicKey2.point.x);
-            assert.equal(publicKey1.point.y, publicKey2.point.y);
+            assert.equal(String(publicKey1.point.x), String(publicKey2.point.x));
+            assert.equal(String(publicKey1.point.y), String(publicKey2.point.y));
             assert.equal(publicKey1.curve, publicKey2.curve);
         });
     });
@@ -133,11 +133,11 @@ describe("Signature test", function() {
             let privateKey = new PrivateKey();
             let message = "This is a text message";
             let signature1 = Ecdsa.sign(message, privateKey);
-            let der = signature1.toDer()
+            let der = signature1.toDer();
             let signature2 = Signature.fromDer(der);
 
-            assert.equal(signature1.r, signature2.r);
-            assert.equal(signature1.s, signature2.s);
+            assert.equal(String(signature1.r), String(signature2.r));
+            assert.equal(String(signature1.s), String(signature2.s));
         });
     });
     describe("#testBase64Conversion()", function() {
@@ -148,8 +148,8 @@ describe("Signature test", function() {
             let base64 = signature1.toBase64();
             let signature2 = Signature.fromBase64(base64);
 
-            assert.equal(signature1.r, signature2.r);
-            assert.equal(signature1.s, signature2.s);
+            assert.equal(String(signature1.r), String(signature2.r));
+            assert.equal(String(signature1.s), String(signature2.s));
         });
     });
 });

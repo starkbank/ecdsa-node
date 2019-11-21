@@ -24,12 +24,13 @@
     "openbanking"
   ],
   "author": "caio dottori",
-  "license": "ISC",
+  "license": "MIT License",
   "bugs": {
     "url": "https://github.com/starkbank/ecdsa-node/issues"
   },
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
+    "big-integer": "^1.6.48",
     "js-sha256": "^0.9.0",
     "mocha": "^6.2.2"
   }
