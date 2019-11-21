@@ -21,16 +21,7 @@ var Ecdsa = ellipticcurve.Ecdsa
 var PrivateKey = ellipticcurve.PrivateKey
 
 // Generate privateKey from PEM string
-var privateKey = PrivateKey.fromPem("""
-    -----BEGIN EC PARAMETERS-----
-    BgUrgQQACg==
-    -----END EC PARAMETERS-----
-    -----BEGIN EC PRIVATE KEY-----
-    MHQCAQEEIODvZuS34wFbt0X53+P5EnSj6tMjfVK01dD1dgDH02RzoAcGBSuBBAAK
-    oUQDQgAE/nvHu/SQQaos9TUljQsUuKI15Zr5SabPrbwtbfT/408rkVVzq8vAisbB
-    RmpeRREXj5aog/Mq8RrdYy75W9q/Ig==
-    -----END EC PRIVATE KEY-----
-""")
+var privateKey = PrivateKey.fromPem("-----BEGIN EC PARAMETERS-----\nBgUrgQQACg==\n-----END EC PARAMETERS-----\n-----BEGIN EC PRIVATE KEY-----\nMHQCAQEEIODvZuS34wFbt0X53+P5EnSj6tMjfVK01dD1dgDH02RzoAcGBSuBBAAK\noUQDQgAE/nvHu/SQQaos9TUljQsUuKI15Zr5SabPrbwtbfT/408rkVVzq8vAisbB\nRmpeRREXj5aog/Mq8RrdYy75W9q/Ig==\n-----END EC PRIVATE KEY-----\n")
 
 // Create message from json
 let message = JSON.stringify({
@@ -66,7 +57,7 @@ var Ecdsa = ellipticcurve.Ecdsa
 var PrivateKey = ellipticcurve.PrivateKey
 
 // Generate new Keys
-let privateKey = PrivateKey()
+let privateKey = new PrivateKey()
 let publicKey = privateKey.publicKey()
 
 let message = "My test message"
@@ -103,7 +94,7 @@ var PublicKey = ellipticcurve.PublicKey
 var File = ellipticcurve.utils.File
 
 let publicKeyPem = File.read("publicKey.pem")
-let signatureDer = File.read("signatureDer.txt", "rb")
+let signatureDer = File.read("signatureDer.txt", "binary")
 let message = File.read("message.txt")
 
 let publicKey = PublicKey.fromPem(publicKeyPem)
@@ -131,7 +122,7 @@ var ellipticcurve = require("@starkbank/ecdsa-node")
 var Signature = ellipticcurve.Signature
 var File = ellipticcurve.utils.File
 
-let signatureDer = File.read("signatureDer.txt", "rb")
+let signatureDer = File.read("signatureDer.txt", "binary")
 
 let signature = Signature.fromDer(signatureDer)
 
@@ -147,7 +138,7 @@ npm install @starkbank/ecdsa-node
 ```
 
 ### Run all unit tests
-Run tests in [Mocha framework]: https://mochajs.org/#getting-started
+Run tests in [Mocha framework](https://mochajs.org/#getting-started)
 
 ```
 node test

@@ -1,4 +1,5 @@
-exports.Signature = require("./lib/signature");
-exports.PublicKey = require("./lib/publickey");
-exports.PrivateKey = require("./lib/privatekey");
-exports.utils = require("./lib/utils");
+exports.Signature = require("./lib/signature").Signature;
+exports.PublicKey = require("./lib/publickey").PublicKey;
+exports.PrivateKey = require("./lib/privatekey").PrivateKey;
+exports.Ecdsa = require("./lib/ecdsa");
+exports.utils = require("./lib/utils/utils");
