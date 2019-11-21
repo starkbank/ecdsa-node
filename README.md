@@ -4,12 +4,22 @@
 
 This is a JS fork of ecdsa-python
 
-It is compatible with OpenSSL and is fast.
-It uses some elegant math as Jacobian Coordinates to speed up the ECDSA.
+It is compatible with OpenSSL.
+It uses some elegant math as Jacobian Coordinates to speed up the ECDSA on pure JS.
 
 ### Curves
 
 We currently support `secp256k1`, but it's super easy to add more curves to the project. Just add them on `curve.js`
+
+### Speed
+
+We ran a test on Node 13.1.0 on a MAC Pro i5 2019. The libraries ran 100 times and showed the average times displayed bellow:
+
+| Library            | sign          | verify  |
+| ------------------ |:-------------:| -------:|
+| [crypto]           |     0.5ms     |  1.0ms  |
+| starkbank-ecdsa    |     6.3ms     | 15.0ms  |
+
 
 ### Sample Code
 
@@ -138,8 +148,12 @@ npm install @starkbank/ecdsa-node
 ```
 
 ### Run all unit tests
-Run tests in [Mocha framework](https://mochajs.org/#getting-started)
+Run tests in [Mocha framework]
 
 ```
 node test
 ```
+
+[Mocha framework]: https://mochajs.org/#getting-started
+[crypto]: https://nodejs.org/api/crypto.html
+[ecdsa]: https://www.npmjs.com/package/ecdsa
