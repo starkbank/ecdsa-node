@@ -7,6 +7,14 @@ This is a JS fork of ecdsa-python
 It is compatible with OpenSSL.
 It uses some elegant math as Jacobian Coordinates to speed up the ECDSA on pure JS.
 
+### Installation
+
+To install StarkBank`s ECDSA-Node, run:
+
+```sh
+npm install @starkbank/ecdsa-node
+```
+
 ### Curves
 
 We currently support `secp256k1`, but it's super easy to add more curves to the project. Just add them on `curve.js`
