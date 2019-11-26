@@ -149,12 +149,6 @@ console.log(signature.toBase64())
 
 [Stark Bank]: https://starkbank.com
 
-### How to install
-
-```
-npm install @starkbank/ecdsa-node
-```
-
 ### Run all unit tests
 Run tests in [Mocha framework]
 
