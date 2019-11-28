@@ -9,10 +9,10 @@ It uses some elegant math as Jacobian Coordinates to speed up the ECDSA on pure 
 
 ### Installation
 
-To install StarkBank`s ECDSA-Node, run:
+To install StarkBank`s ECDSA for Node JS, run:
 
 ```sh
-npm install @starkbank/ecdsa-node
+npm install @starkbank/ecdsa
 ```
 
 ### Curves
@@ -34,7 +34,7 @@ We ran a test on Node 13.1.0 on a MAC Pro i5 2019. The libraries ran 100 times a
 How to sign a json message for [Stark Bank]:
 
 ```js
-var ellipticcurve = require("@starkbank/ecdsa-node")
+var ellipticcurve = require("@starkbank/ecdsa")
 var Ecdsa = ellipticcurve.Ecdsa
 var PrivateKey = ellipticcurve.PrivateKey
 
@@ -105,7 +105,7 @@ openssl dgst -sha256 -sign privateKey.pem -out signatureDer.txt message.txt
 It's time to verify:
 
 ```js
-var ellipticcurve = require("@starkbank/ecdsa-node")
+var ellipticcurve = require("@starkbank/ecdsa")
 var Ecdsa = ellipticcurve.Ecdsa
 var Signature = ellipticcurve.Signature
 var PublicKey = ellipticcurve.PublicKey
@@ -136,7 +136,7 @@ openssl base64 -in signatureDer.txt -out signatureBase64.txt
 With this library, you can do it:
 
 ```js
-var ellipticcurve = require("@starkbank/ecdsa-node")
+var ellipticcurve = require("@starkbank/ecdsa")
 var Signature = ellipticcurve.Signature
 var File = ellipticcurve.utils.File
 

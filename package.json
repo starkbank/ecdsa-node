@@ -1,5 +1,5 @@
 {
-  "name": "@starkbank/ecdsa-node",
+  "name": "@starkbank/ecdsa",
   "version": "1.0.0",
   "description": "fast openSSL-compatible implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA)",
   "main": "index.js",
