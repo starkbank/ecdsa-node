@@ -2,10 +2,7 @@
 
 ### Overview
 
-This is a JS fork of ecdsa-python
-
-It is compatible with OpenSSL.
-It uses some elegant math as Jacobian Coordinates to speed up the ECDSA on pure JS.
+This is a JS fork of ecdsa-python. It is compatible with OpenSSL and uses elegant math such as Jacobian Coordinates to speed up the ECDSA on pure JS.
 
 ### Installation
 
@@ -34,12 +31,12 @@ We ran a test on Node 13.1.0 on a MAC Pro i5 2019. The libraries ran 100 times a
 How to sign a json message for [Stark Bank]:
 
 ```js
-var ellipticcurve = require("@starkbank/ecdsa")
-var Ecdsa = ellipticcurve.Ecdsa
-var PrivateKey = ellipticcurve.PrivateKey
+var ellipticcurve = require("@starkbank/ecdsa");
+var Ecdsa = ellipticcurve.Ecdsa;
+var PrivateKey = ellipticcurve.PrivateKey;
 
 // Generate privateKey from PEM string
-var privateKey = PrivateKey.fromPem("-----BEGIN EC PARAMETERS-----\nBgUrgQQACg==\n-----END EC PARAMETERS-----\n-----BEGIN EC PRIVATE KEY-----\nMHQCAQEEIODvZuS34wFbt0X53+P5EnSj6tMjfVK01dD1dgDH02RzoAcGBSuBBAAK\noUQDQgAE/nvHu/SQQaos9TUljQsUuKI15Zr5SabPrbwtbfT/408rkVVzq8vAisbB\nRmpeRREXj5aog/Mq8RrdYy75W9q/Ig==\n-----END EC PRIVATE KEY-----\n")
+var privateKey = PrivateKey.fromPem("-----BEGIN EC PARAMETERS-----\nBgUrgQQACg==\n-----END EC PARAMETERS-----\n-----BEGIN EC PRIVATE KEY-----\nMHQCAQEEIODvZuS34wFbt0X53+P5EnSj6tMjfVK01dD1dgDH02RzoAcGBSuBBAAK\noUQDQgAE/nvHu/SQQaos9TUljQsUuKI15Zr5SabPrbwtbfT/408rkVVzq8vAisbB\nRmpeRREXj5aog/Mq8RrdYy75W9q/Ig==\n-----END EC PRIVATE KEY-----\n");
 
 // Create message from json
 let message = JSON.stringify({
@@ -54,37 +51,37 @@ let message = JSON.stringify({
             "tags": ["daenerys", "targaryen", "transfer-1-external-id"]
         }
     ]
-})
+});
 
-signature = Ecdsa.sign(message, privateKey)
+signature = Ecdsa.sign(message, privateKey);
 
 // Generate Signature in base64. This result can be sent to Stark Bank in header as Digital-Signature parameter
-console.log(signature.toBase64())
+console.log(signature.toBase64());
 
 // To double check if message matches the signature
-let publicKey = privateKey.publicKey()
+let publicKey = privateKey.publicKey();
 
-console.log(Ecdsa.verify(message, signature, publicKey))
+console.log(Ecdsa.verify(message, signature, publicKey));
 ```
 
 Simple use:
 
 ```js
-var ellipticcurve = require("@starkbank/ecdsa-node")
-var Ecdsa = ellipticcurve.Ecdsa
-var PrivateKey = ellipticcurve.PrivateKey
+var ellipticcurve = require("@starkbank/ecdsa-node");
+var Ecdsa = ellipticcurve.Ecdsa;
+var PrivateKey = ellipticcurve.PrivateKey;
 
 // Generate new Keys
-let privateKey = new PrivateKey()
-let publicKey = privateKey.publicKey()
+let privateKey = new PrivateKey();
+let publicKey = privateKey.publicKey();
 
-let message = "My test message"
+let message = "My test message";
 
 // Generate Signature
-let signature = Ecdsa.sign(message, privateKey)
+let signature = Ecdsa.sign(message, privateKey);
 
 // Verify if signature is valid
-console.log(Ecdsa.verify(message, signature, publicKey))
+console.log(Ecdsa.verify(message, signature, publicKey));
 ```
 
 ### OpenSSL
@@ -102,23 +99,23 @@ Create a message.txt file and sign it:
 openssl dgst -sha256 -sign privateKey.pem -out signatureDer.txt message.txt
 ```
 
-It's time to verify:
+To verify, do this:
 
 ```js
-var ellipticcurve = require("@starkbank/ecdsa")
-var Ecdsa = ellipticcurve.Ecdsa
-var Signature = ellipticcurve.Signature
-var PublicKey = ellipticcurve.PublicKey
-var File = ellipticcurve.utils.File
+var ellipticcurve = require("@starkbank/ecdsa");
+var Ecdsa = ellipticcurve.Ecdsa;
+var Signature = ellipticcurve.Signature;
+var PublicKey = ellipticcurve.PublicKey;
+var File = ellipticcurve.utils.File;
 
-let publicKeyPem = File.read("publicKey.pem")
-let signatureDer = File.read("signatureDer.txt", "binary")
-let message = File.read("message.txt")
+let publicKeyPem = File.read("publicKey.pem");
+let signatureDer = File.read("signatureDer.txt", "binary");
+let message = File.read("message.txt");
 
-let publicKey = PublicKey.fromPem(publicKeyPem)
-let signature = Signature.fromDer(signatureDer)
+let publicKey = PublicKey.fromPem(publicKeyPem);
+let signature = Signature.fromDer(signatureDer);
 
-console.log(Ecdsa.verify(message, signature, publicKey))
+console.log(Ecdsa.verify(message, signature, publicKey));
 ```
 
 You can also verify it on terminal:
@@ -133,18 +130,18 @@ NOTE: If you want to create a Digital Signature to use in the [Stark Bank], you 
 openssl base64 -in signatureDer.txt -out signatureBase64.txt
 ```
 
-With this library, you can do it:
+You can do the same with this library:
 
 ```js
-var ellipticcurve = require("@starkbank/ecdsa")
-var Signature = ellipticcurve.Signature
-var File = ellipticcurve.utils.File
+var ellipticcurve = require("@starkbank/ecdsa");
+var Signature = ellipticcurve.Signature;
+var File = ellipticcurve.utils.File;
 
-let signatureDer = File.read("signatureDer.txt", "binary")
+let signatureDer = File.read("signatureDer.txt", "binary");
 
-let signature = Signature.fromDer(signatureDer)
+let signature = Signature.fromDer(signatureDer);
 
-console.log(signature.toBase64())
+console.log(signature.toBase64());
 ```
 
 [Stark Bank]: https://starkbank.com
@@ -152,8 +149,14 @@ console.log(signature.toBase64())
 ### Run all unit tests
 Run tests in [Mocha framework]
 
-```
+```sh
 node test
+```
+
+or
+
+```sh
+./node_modules/mocha/bin/mocha
 ```
 
 [Mocha framework]: https://mochajs.org/#getting-started
