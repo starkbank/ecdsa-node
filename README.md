@@ -2,7 +2,7 @@
 
 ### Overview
 
-This is a JS fork of ecdsa-python. It is compatible with OpenSSL and uses elegant math such as Jacobian Coordinates to speed up the ECDSA on pure JS.
+This is a pure JS implementation of the Elliptic Curve Digital Signature Algorithm. It is compatible with OpenSSL and uses elegant math such as Jacobian Coordinates to speed up the ECDSA on pure JS.
 
 ### Installation
 
