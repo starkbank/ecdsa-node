@@ -1,0 +1,37 @@
+{
+  "name": "@starkbank/ecdsa",
+  "version": "1.0.0",
+  "description": "fast openSSL-compatible implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA)",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/starkbank/ecdsa-node.git"
+  },
+  "keywords": [
+    "ecdsa",
+    "signature",
+    "fast",
+    "jacobian",
+    "stark",
+    "starkbank",
+    "openbanking"
+  ],
+  "author": "caio dottori",
+  "license": "MIT License",
+  "bugs": {
+    "url": "https://github.com/starkbank/ecdsa-node/issues"
+  },
+  "homepage": "https://github.com/starkbank/ecdsa-node#readme",
+  "dependencies": {
+    "big-integer": "^1.6.48",
+    "js-sha256": "^0.9.0",
+    "mocha": "^6.2.2"
+  }
+}

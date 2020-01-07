@@ -3,7 +3,3 @@
 *.pem
 privateKey.pem
 publicKey.pem
-
-#Pycharm files
-*.idea
-/idea*
