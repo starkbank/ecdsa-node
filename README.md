@@ -67,7 +67,7 @@ console.log(Ecdsa.verify(message, signature, publicKey));
 Simple use:
 
 ```js
-var ellipticcurve = require("@starkbank/ecdsa-node");
+var ellipticcurve = require("@starkbank/ecdsa");
 var Ecdsa = ellipticcurve.Ecdsa;
 var PrivateKey = ellipticcurve.PrivateKey;
 
