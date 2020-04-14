@@ -3,3 +3,4 @@
 *.pem
 privateKey.pem
 publicKey.pem
+.idea
