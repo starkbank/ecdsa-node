@@ -1,10 +1,10 @@
 var assert = require("assert");
 
-var Ecdsa = require("../lib/ecdsa");
-var PrivateKey = require("../lib/privateKey").PrivateKey;
-var PublicKey = require("../lib/publicKey").PublicKey;
-var Signature = require("../lib/signature").Signature;
-var File = require("../lib/utils/file");
+var Ecdsa = require("../ellipticcurve/ecdsa");
+var PrivateKey = require("../ellipticcurve/privateKey").PrivateKey;
+var PublicKey = require("../ellipticcurve/publicKey").PublicKey;
+var Signature = require("../ellipticcurve/signature").Signature;
+var File = require("../ellipticcurve/utils/file");
 
 
 describe("ECDSA test", function() {

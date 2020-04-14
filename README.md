@@ -9,7 +9,7 @@ This is a pure JS implementation of the Elliptic Curve Digital Signature Algorit
 To install StarkBank`s ECDSA for Node JS, run:
 
 ```sh
-npm install @starkbank/ecdsa
+npm install starkbank-ecdsa
 ```
 
 ### Curves
@@ -31,7 +31,7 @@ We ran a test on Node 13.1.0 on a MAC Pro i5 2019. The libraries ran 100 times a
 How to sign a json message for [Stark Bank]:
 
 ```js
-var ellipticcurve = require("@starkbank/ecdsa");
+var ellipticcurve = require("starkbank-ecdsa");
 var Ecdsa = ellipticcurve.Ecdsa;
 var PrivateKey = ellipticcurve.PrivateKey;
 
@@ -67,7 +67,7 @@ console.log(Ecdsa.verify(message, signature, publicKey));
 Simple use:
 
 ```js
-var ellipticcurve = require("@starkbank/ecdsa");
+var ellipticcurve = require("starkbank-ecdsa");
 var Ecdsa = ellipticcurve.Ecdsa;
 var PrivateKey = ellipticcurve.PrivateKey;
 
@@ -102,7 +102,7 @@ openssl dgst -sha256 -sign privateKey.pem -out signatureDer.txt message.txt
 To verify, do this:
 
 ```js
-var ellipticcurve = require("@starkbank/ecdsa");
+var ellipticcurve = require("starkbank-ecdsa");
 var Ecdsa = ellipticcurve.Ecdsa;
 var Signature = ellipticcurve.Signature;
 var PublicKey = ellipticcurve.PublicKey;
@@ -133,7 +133,7 @@ openssl base64 -in signatureDer.txt -out signatureBase64.txt
 You can do the same with this library:
 
 ```js
-var ellipticcurve = require("@starkbank/ecdsa");
+var ellipticcurve = require("starkbank-ecdsa");
 var Signature = ellipticcurve.Signature;
 var File = ellipticcurve.utils.File;
 

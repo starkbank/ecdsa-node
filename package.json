@@ -1,10 +1,10 @@
 {
-  "name": "@starkbank/ecdsa",
-  "version": "0.0.3",
+  "name": "starkbank-ecdsa",
+  "version": "0.0.1",
   "description": "fast openSSL-compatible implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA)",
   "main": "index.js",
   "directories": {
-    "lib": "lib",
+    "lib": "ellipticcurve",
     "test": "test"
   },
   "scripts": {
@@ -23,7 +23,7 @@
     "starkbank",
     "openbanking"
   ],
-  "author": "caio dottori",
+  "author": "Stark Bank",
   "license": "MIT License",
   "bugs": {
     "url": "https://github.com/starkbank/ecdsa-node/issues"
