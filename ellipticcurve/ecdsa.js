@@ -9,11 +9,16 @@ const randomInteger = Integer.between;
 const modulo = Integer.modulo;
 
 
-exports.sign = function (message, privateKey, hashfunc=sha256) {
+exports.sign = function (message, privateKey, hashfunc = null, randNum = null) {
+    if (hashfunc == null) {
+        hashfunc = sha256;
+    }
     let hashMessage = hashfunc(message);
     let numberMessage = BinaryAscii.numberFromHex(hashMessage);
     let curve = privateKey.curve;
-    let randNum = randomInteger(BigInt(1), curve.N.minus(1));
+    if (randNum == null) {
+        randNum = randomInteger(BigInt(1), curve.N.minus(1));
+    }
     let randSignPoint = EcdsaMath.multiply(curve.G, randNum, curve.N, curve.A, curve.P);
     let r = modulo(randSignPoint.x, curve.N);
     let s = modulo((numberMessage.add(r.multiply(privateKey.secret)).multiply(EcdsaMath.inv(randNum, curve.N))), curve.N);
