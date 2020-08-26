@@ -1,10 +1,11 @@
-var assert = require("assert");
+const assert = require("assert");
+const BigInt = require("big-integer");
 
-var Ecdsa = require("../ellipticcurve/ecdsa");
-var PrivateKey = require("../ellipticcurve/privateKey").PrivateKey;
-var PublicKey = require("../ellipticcurve/publicKey").PublicKey;
-var Signature = require("../ellipticcurve/signature").Signature;
-var File = require("../ellipticcurve/utils/file");
+const Ecdsa = require("../ellipticcurve/ecdsa");
+const PrivateKey = require("../ellipticcurve/privateKey").PrivateKey;
+const PublicKey = require("../ellipticcurve/publicKey").PublicKey;
+const Signature = require("../ellipticcurve/signature").Signature;
+const File = require("../ellipticcurve/utils/file");
 
 
 describe("ECDSA test", function() {
@@ -150,6 +151,20 @@ describe("Signature test", function() {
 
             assert.equal(String(signature1.r), String(signature2.r));
             assert.equal(String(signature1.s), String(signature2.s));
+        });
+    });
+    describe("#testExternalRandNum()", function () {
+        it("should confirm authenticity and same signature", function () {
+            let privateKey = new PrivateKey();
+            let publicKey = privateKey.publicKey();
+            let message = "This is a message";
+            let signature_1 = Ecdsa.sign(message, privateKey, null, BigInt(123));
+            let signature_2 = Ecdsa.sign(message, privateKey, null, BigInt(123));
+
+            assert.equal(Ecdsa.verify(message, signature_1, publicKey), true);
+            assert.equal(Ecdsa.verify(message, signature_2, publicKey), true);
+            assert.equal(signature_1.r.value, signature_2.r.value);
+            assert.equal(signature_1.s.value, signature_2.s.value);
         });
     });
 });
