@@ -8,6 +8,10 @@ const Integer = require("./utils/integer");
 const randomInteger = Integer.between;
 const modulo = Integer.modulo;
 
+exports.EcdsaMath = EcdsaMath;
+exports.Signature = Signature;
+exports.BinaryAscii = BinaryAscii;
+exports.Integer = Integer;
 
 exports.sign = function (message, privateKey, hashfunc=sha256) {
     let hashMessage = hashfunc(message);
