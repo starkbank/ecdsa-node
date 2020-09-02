@@ -31,7 +31,9 @@
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
     "big-integer": "^1.6.48",
-    "js-sha256": "^0.9.0",
+    "js-sha256": "^0.9.0"
+  },
+  "devDependencies": {
     "mocha": "^6.2.2"
   }
 }
