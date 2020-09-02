@@ -1,6 +1,6 @@
 {
   "name": "starkbank-ecdsa",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "fast openSSL-compatible implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA)",
   "main": "index.js",
   "directories": {
