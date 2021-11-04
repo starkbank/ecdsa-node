@@ -32,6 +32,14 @@ exports.verify = function (message, signature, publicKey, hashfunc=sha256) {
     let curve = publicKey.curve;
     let sigR = signature.r;
     let sigS = signature.s;
+
+    if (sigR < 1 || sigR >= curve.N) {
+        return false;
+    }
+    if (sigS < 1 || sigS >= curve.N) {
+        return false;
+    }
+
     let inv = EcdsaMath.inv(sigS, curve.N);
     let u1 = EcdsaMath.multiply(curve.G, modulo((numberMessage.multiply(inv)), curve.N), curve.N, curve.A, curve.P);
     let u2 = EcdsaMath.multiply(publicKey.point, modulo((sigR.multiply(inv)), curve.N), curve.N, curve.A, curve.P);
