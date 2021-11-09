@@ -100,7 +100,7 @@ var jacobianDouble = function (p, A, P) {
     // :param A: Coefficient of the first-order term of the equation Y^2 = X^3 + A*X + B (mod p)
     // :return: Point that represents the sum of First and Second Point
 
-    if (!p.y.value) {
+    if (p.y == 0) {
         return new Point(BigInt(0), BigInt(0), BigInt(0));
     };
     let ysq = modulo((p.y.pow(2)), P);
@@ -123,10 +123,10 @@ var jacobianAdd = function (p, q, A, P) {
     // :param A: Coefficient of the first-order term of the equation Y^2 = X^3 + A*X + B (mod p)
     // :return: Point that represents the sum of First and Second Point
 
-    if (!p.y.value) {
+    if (p.y == 0) {
         return q;
     };
-    if (!q.y.value) {
+    if (q.y == 0) {
         return p;
     };
 

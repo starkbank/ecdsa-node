@@ -7,6 +7,10 @@ class Point {
         this.y = y;
         this.z = z;
     }
+
+    isAtInfinity() {
+        return this.y == 0;
+    }
 }
 
 
