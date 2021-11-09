@@ -2,6 +2,7 @@ const BinaryAscii = require("./utils/binary");
 const EcdsaCurve = require("./curve");
 const Point = require("./point").Point;
 const der = require("./utils/der");
+const Math = require("./math");
 
 
 class PublicKey {
@@ -86,11 +87,20 @@ class PublicKey {
 
         let p = new Point(BinaryAscii.numberFromString(xs), BinaryAscii.numberFromString(ys));
 
-        if (validatePoint & !curve.contains(p)) {
+        let publicKey = new PublicKey(p, curve);
+        if (!validatePoint) {
+            return publicKey;
+        }
+        if (p.isAtInfinity()) {
+            throw new Error("Public Key point is at infinity");
+        }
+        if (!curve.contains(p)) {
             throw new Error("point (" + p.x + "," + p.y + ") is not valid for curve " + curve.name);
         }
-
-        return new PublicKey(p, curve);
+        if (!Math.multiply(p, curve.N, curve.N, curve.A, curve.P).isAtInfinity()) {
+            throw new Error("Point (" + p.x + "," + p.y + " * " + curve.name + ".N is not at infinity");
+        }
+        return publicKey
     };
 };
 

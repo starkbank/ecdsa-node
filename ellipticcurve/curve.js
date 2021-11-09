@@ -19,14 +19,23 @@ class CurveFp {
         this.name = name;
         this.nistName = nistName;
         this._oid = oid;
+    };
 
-        this.contains = function (p) {
-            return modulo(((p.y.pow(2)).minus((p.x.pow(3)).add(this.A.multiply(p.x)).add(this.B))), this.P).equals(0);
-        };
+    contains(p) {
+        if (p.x < 0 || p.x > this.P.minus(1)) {
+            return false;
+        }
+        if (p.y < 0 || p.y > this.P.minus(1)) {
+            return false;
+        }
+        if (!modulo(((p.y.pow(2)).minus((p.x.pow(3)).add(this.A.multiply(p.x)).add(this.B))), this.P).equals(0)) {
+            return false;
+        }
+        return true;
+    };
 
-        this.length = function () {
-            return Math.floor((1 + this.N.toString(16).length) / 2);
-        };
+    length() {
+        return Math.floor((1 + this.N.toString(16).length) / 2);
     };
 
     get oid() {

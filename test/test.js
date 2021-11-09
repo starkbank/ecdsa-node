@@ -30,6 +30,15 @@ describe("ECDSA test", function() {
             assert.equal(Ecdsa.verify(message2, signature, publicKey), false);
         });
     });
+    describe("#testZeroSignature()", function() {
+        it("should deny authenticity", function() {
+            let privateKey = new PrivateKey();
+            let publicKey = privateKey.publicKey();
+            let message = "This is the right message";
+
+            assert.equal(Ecdsa.verify(message, new Signature(0, 0), publicKey), false);
+        });
+    });
 });
 describe("openSSL test", function() {
     describe("#testAssign()", function() {
