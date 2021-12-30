@@ -67,11 +67,23 @@ let prime256v1 = new CurveFp(
     "P-256"
 );
 
+let brainpoolP256r1 = new CurveFp(
+    BigInt("7D5A0975FC2C3057EEF67530417AFFE7FB8055C126DC5C6CE94A4B44F330B5D9", 16),
+    BigInt("26DC5C6CE94A4B44F330B5D9BBD77CBF958416295CF7E1CE6BCCDC18FF8C07B6", 16),
+    BigInt("A9FB57DBA1EEA9BC3E660A909D838D726E3BF623D52620282013481D1F6E5377", 16),
+    BigInt("A9FB57DBA1EEA9BC3E660A909D838D718C397AA3B561A6F7901E0E82974856A7", 16),
+    BigInt("8BD2AEB9CB7E57CB2C4B482FFC81B7AFB9DE27E1E3BD23C23A4453BD9ACE3262", 16),
+    BigInt("547EF835C3DAC4FD97F8461A14611DC9C27745132DED8E545C1D54C72F046997", 16),
+    "brainpoolP256r1",
+    [1, 3, 36, 3, 3, 2, 8, 1, 7]
+);
+
 let p256 = prime256v1;
 
 let supportedCurves = [
     secp256k1,
     prime256v1,
+    brainpoolP256r1,
 ];
 
 let curvesByOid = {};
@@ -82,5 +94,6 @@ exports.CurveFp = CurveFp;
 exports.curvesByOid = curvesByOid;
 exports.secp256k1 = secp256k1
 exports.prime256v1 = prime256v1
+exports.brainpoolP256r1 = brainpoolP256r1
 exports.p256 = p256
 exports.supportedCurves = supportedCurves;
