@@ -63,7 +63,7 @@ let prime256v1 = new CurveFp(
     BigInt("6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296", 16),
     BigInt("4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5", 16),
     "prime256v1",
-    [1, 2, 840, 10045, 3, 1, 1, 7],
+    [1, 2, 840, 10045, 3, 1, 7],
     "P-256"
 );
 
@@ -75,7 +75,7 @@ let brainpoolP256r1 = new CurveFp(
     BigInt("8BD2AEB9CB7E57CB2C4B482FFC81B7AFB9DE27E1E3BD23C23A4453BD9ACE3262", 16),
     BigInt("547EF835C3DAC4FD97F8461A14611DC9C27745132DED8E545C1D54C72F046997", 16),
     "brainpoolP256r1",
-    [1, 3, 36, 3, 3, 2, 8, 1, 7]
+    [1, 3, 36, 3, 3, 2, 8, 1, 1, 7]
 );
 
 let p256 = prime256v1;
