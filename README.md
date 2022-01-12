@@ -14,7 +14,7 @@ npm install starkbank-ecdsa
 
 ### Curves
 
-We currently support `secp256k1`, `brainpoolP256r1` and `prime256v1`, but it's super easy to add more curves to the project. Just add them on `curve.js`
+We currently support `secp256k1`, `brainpoolP224r1`, `brainpoolP256r1`, `brainpoolP320r1`, `brainpoolP384r1`, `brainpoolP512r1` and `prime256v1`, but it's super easy to add more curves to the project. Just add them on `curve.js`
 
 ### Speed
 
