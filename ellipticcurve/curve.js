@@ -146,8 +146,12 @@ supportedCurves.forEach((curve) => {curvesByOid[curve.oid] = curve});
 
 exports.CurveFp = CurveFp;
 exports.curvesByOid = curvesByOid;
-exports.secp256k1 = secp256k1
-exports.prime256v1 = prime256v1
-exports.brainpoolP256r1 = brainpoolP256r1
-exports.p256 = p256
+exports.secp256k1 = secp256k1;
+exports.prime256v1 = prime256v1;
+exports.brainpoolP224r1 = brainpoolP224r1;
+exports.brainpoolP256r1 = brainpoolP256r1;
+exports.brainpoolP320r1 = brainpoolP320r1;
+exports.brainpoolP384r1 = brainpoolP384r1;
+exports.brainpoolP512r1 = brainpoolP512r1;
+exports.p256 = p256;
 exports.supportedCurves = supportedCurves;
