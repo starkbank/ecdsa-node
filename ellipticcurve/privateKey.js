@@ -10,7 +10,7 @@ const hexAt = "\x00";
 
 
 class PrivateKey {
-    constructor(curve=EcdsaCurve.brainpoolP256r1, secret=1) {
+    constructor(curve=EcdsaCurve.secp256k1, secret=null) {
         this.curve = curve;
         if (secret) {
             this.secret = secret;
