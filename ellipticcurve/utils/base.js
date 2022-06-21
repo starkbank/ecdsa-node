@@ -1,3 +1,5 @@
+var Buffer = require('buffer/').Buffer 
+
 exports.decode = function (string) {
     return Buffer.from(string, "base64").toString("binary");
 };

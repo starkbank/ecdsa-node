@@ -33,7 +33,8 @@
     "big-integer": "^1.6.48",
     "expo-random": "~8.1.0",
     "js-sha256": "^0.9.0",
-    "react-native-unimodules": "^0.14.10"
+    "react-native-unimodules": "^0.14.10",
+    "buffer": "^5.6.0"
   },
   "devDependencies": {
     "mocha": "^9.1.3"
