@@ -9,7 +9,7 @@ const randomInteger = Integer.between;
 const modulo = Integer.modulo;
 
 
-exports.sign = function (message, privateKey, hashfunc = null, randNum = null) {
+exports.sign = async function (message, privateKey, hashfunc = null, randNum = null) {
     if (hashfunc == null) {
         hashfunc = sha256;
     }
@@ -17,7 +17,7 @@ exports.sign = function (message, privateKey, hashfunc = null, randNum = null) {
     let numberMessage = BinaryAscii.numberFromHex(hashMessage);
     let curve = privateKey.curve;
     if (randNum == null) {
-        randNum = randomInteger(BigInt(1), curve.N.minus(1));
+        randNum = await randomInteger(BigInt(1), curve.N.minus(1));
     }
     let randSignPoint = EcdsaMath.multiply(curve.G, randNum, curve.N, curve.A, curve.P);
     let r = modulo(randSignPoint.x, curve.N);
