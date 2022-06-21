@@ -1,7 +1,8 @@
 // based on random-number-csprng: https://www.npmjs.com/package/random-number-csprng
 
 const BigInt = require("big-integer");
-const crypto = require("crypto");
+import * as Random from 'expo-random';
+
 
 
 function modulo(x, n) {
@@ -47,11 +48,8 @@ function calculateParameters(range) {
 }
 
 
-function secureRandomNumber(minimum, maximum) { // bigint, bigint
-    if (crypto == null || crypto.randomBytes == null) {
-        throw new Error("No suitable random number generator available. Ensure that your runtime is linked against OpenSSL (or an equivalent) correctly.");
-    };
-
+async function secureRandomNumber(minimum, maximum) { // bigint, bigint
+    
     if (maximum.lesserOrEquals(minimum)) {
         throw new Error("The maximum value must be higher than the minimum value.")
     };
@@ -68,7 +66,7 @@ function secureRandomNumber(minimum, maximum) { // bigint, bigint
 
     let {bitsNeeded, bytesNeeded, mask} = calculateParameters(range);
 
-    let randomBytes = crypto.randomBytes(bytesNeeded);
+    let randomBytes = await Random.getRandomBytesAsync(bytesNeeded);
 
     var randomValue = BigInt(0);
 
