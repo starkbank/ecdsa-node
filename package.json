@@ -31,10 +31,10 @@
   "homepage": "https://github.com/starkbank/ecdsa-node#readme",
   "dependencies": {
     "big-integer": "^1.6.48",
+    "buffer": "^5.6.0",
     "expo-random": "~12.1.2",
     "js-sha256": "^0.9.0",
-    "react-native-unimodules": "^0.14.10",
-    "buffer": "^5.6.0"
+    "react-native-unimodules": "^0.14.10"
   },
   "devDependencies": {
     "mocha": "^9.1.3"
