@@ -106,11 +106,10 @@ var ellipticcurve = require("starkbank-ecdsa");
 var Ecdsa = ellipticcurve.Ecdsa;
 var Signature = ellipticcurve.Signature;
 var PublicKey = ellipticcurve.PublicKey;
-var File = ellipticcurve.utils.File;
 
-let publicKeyPem = File.read("publicKey.pem");
-let signatureDer = File.read("signatureDer.txt", "binary");
-let message = File.read("message.txt");
+let publicKeyPem = "binary content from publicKey.pem";
+let signatureDer = "binary content from signatureDer.txt";
+let message = "My secret message";
 
 let publicKey = PublicKey.fromPem(publicKeyPem);
 let signature = Signature.fromDer(signatureDer);
@@ -135,30 +134,31 @@ You can do the same with this library:
 ```js
 var ellipticcurve = require("starkbank-ecdsa");
 var Signature = ellipticcurve.Signature;
-var File = ellipticcurve.utils.File;
 
-let signatureDer = File.read("signatureDer.txt", "binary");
+let signatureDer = "binary content of signatureDer.txt";
 
 let signature = Signature.fromDer(signatureDer);
 
 console.log(signature.toBase64());
 ```
 
+[](#installation-in-bare-react-native-projects)Installation in bare React Native projects
+=========================================================================================
+
+For bare React Native projects, you must ensure that you have [installed and configured the `expo` package](https://docs.expo.dev/bare/installing-expo-modules/) before continuing.
+
+### [](#add-the-package-to-your-npm-dependencies)Add the package to your npm dependencies
+
+    expo install expo-random
+    
+
+### [](#configure-for-ios)Configure for iOS
+
+Run `npx pod-install` after installing the npm package.
+
+### [](#configure-for-android)Configure for Android
+
+No additional set up necessary.
+
 [Stark Bank]: https://starkbank.com
-
-### Run all unit tests
-Run tests in [Mocha framework]
-
-```sh
-node test
-```
-
-or
-
-```sh
-./node_modules/mocha/bin/mocha
-```
-
-[Mocha framework]: https://mochajs.org/#getting-started
-[crypto]: https://nodejs.org/api/crypto.html
 [ecdsa]: https://www.npmjs.com/package/ecdsa
