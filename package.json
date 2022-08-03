@@ -1,6 +1,6 @@
 {
   "name": "mecanizou-sb-ecdsa",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "fast openSSL-compatible implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA)",
   "main": "index.js",
   "directories": {
