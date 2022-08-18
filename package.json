@@ -8,7 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "eslint ellipticcurve"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "js-sha256": "^0.9.0"
   },
   "devDependencies": {
+    "eslint": "^8.22.0",
     "mocha": "^9.1.3"
   }
 }
