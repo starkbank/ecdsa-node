@@ -1,4 +1,5 @@
 // based on random-number-csprng: https://www.npmjs.com/package/random-number-csprng
+// noinspection JSUnusedLocalSymbols
 
 const BigInt = require("big-integer");
 const crypto = require("crypto");
@@ -66,6 +67,7 @@ function secureRandomNumber(minimum, maximum) { // bigint, bigint
 
     let range = maximum.minus(minimum);
 
+    // eslint-disable-next-line no-unused-vars
     let {bitsNeeded, bytesNeeded, mask} = calculateParameters(range);
 
     let randomBytes = crypto.randomBytes(bytesNeeded);
