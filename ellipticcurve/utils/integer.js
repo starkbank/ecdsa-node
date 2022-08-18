@@ -50,11 +50,11 @@ function calculateParameters(range) {
 function secureRandomNumber(minimum, maximum) { // bigint, bigint
     if (crypto == null || crypto.randomBytes == null) {
         throw new Error("No suitable random number generator available. Ensure that your runtime is linked against OpenSSL (or an equivalent) correctly.");
-    };
+    }
 
     if (maximum.lesserOrEquals(minimum)) {
         throw new Error("The maximum value must be higher than the minimum value.")
-    };
+    }
 
     /* We hardcode the values for the following:
         *
@@ -106,7 +106,7 @@ function secureRandomNumber(minimum, maximum) { // bigint, bigint
     /* Outside of the acceptable range, throw it away and try again.
         * We don't try any modulo tricks, as this would introduce bias. */
     return secureRandomNumber(minimum, maximum);
-};
+}
 
 
 exports.between = secureRandomNumber;
