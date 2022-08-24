@@ -39,7 +39,7 @@ var inv = function (x, n) {
 
     if (x.eq(0)) {
         return BigInt(0);
-    };
+    }
 
     let lm = BigInt(1);
     let hm = BigInt(0);
@@ -58,7 +58,7 @@ var inv = function (x, n) {
         hm = lm;
         low = newLow;
         lm = nm;
-    };
+    }
 
     return modulo(lm, n);
 };
@@ -81,7 +81,7 @@ var fromJacobian = function (p, P) {
     // :param P: Prime number in the module of the equation Y^2 = X^3 + A*X + B (mod p)
     // :return: Point in default coordinates
 
-    z = inv(p.z, P);
+    let z = inv(p.z, P);
 
     var point = new Point(
         modulo(p.x.multiply(z.pow(2)), P),
@@ -102,7 +102,7 @@ var jacobianDouble = function (p, A, P) {
 
     if (p.y == 0) {
         return new Point(BigInt(0), BigInt(0), BigInt(0));
-    };
+    }
     let ysq = modulo((p.y.pow(2)), P);
     let S = modulo((p.x.multiply(ysq).multiply(4)), P);
     let M = modulo((((p.x.pow(2)).multiply(3)).add(A.multiply(p.z.pow(4)))), P);
@@ -125,31 +125,31 @@ var jacobianAdd = function (p, q, A, P) {
 
     if (p.y == 0) {
         return q;
-    };
+    }
     if (q.y == 0) {
         return p;
-    };
+    }
 
-    U1 = modulo(p.x.multiply(q.z.pow(2)), P);
-    U2 = modulo(q.x.multiply(p.z.pow(2)), P);
-    S1 = modulo(p.y.multiply(q.z.pow(3)), P);
-    S2 = modulo(q.y.multiply(p.z.pow(3)), P);
+    let U1 = modulo(p.x.multiply(q.z.pow(2)), P);
+    let U2 = modulo(q.x.multiply(p.z.pow(2)), P);
+    let S1 = modulo(p.y.multiply(q.z.pow(3)), P);
+    let S2 = modulo(q.y.multiply(p.z.pow(3)), P);
 
     if (U1.eq(U2)) {
         if (S1.neq(S2)) {
             return Point(BigInt(0), BigInt(0), BigInt(1));
-        };
+        }
         return jacobianDouble(p, A, P);
-    };
+    }
 
-    H = U2.minus(U1);
-    R = S2.minus(S1);
-    H2 = modulo((H.multiply(H)), P);
-    H3 = modulo((H.multiply(H2)), P);
-    U1H2 = modulo((U1.multiply(H2)), P);
-    nx = modulo(((R.pow(2)).minus(H3).minus(U1H2.multiply(2))), P);
-    ny = modulo((R.multiply(U1H2.minus(nx)).minus(S1.multiply(H3))), P);
-    nz = modulo((H.multiply(p.z).multiply(q.z)), P);
+    let H = U2.minus(U1);
+    let R = S2.minus(S1);
+    let H2 = modulo((H.multiply(H)), P);
+    let H3 = modulo((H.multiply(H2)), P);
+    let U1H2 = modulo((U1.multiply(H2)), P);
+    let nx = modulo(((R.pow(2)).minus(H3).minus(U1H2.multiply(2))), P);
+    let ny = modulo((R.multiply(U1H2.minus(nx)).minus(S1.multiply(H3))), P);
+    let nz = modulo((H.multiply(p.z).multiply(q.z)), P);
 
     return new Point(nx, ny, nz);
 };
@@ -167,19 +167,19 @@ var jacobianMultiply = function (p, n, N, A, P) {
 
     if (p.y.eq(0) | n.eq(0)) {
         return new Point(BigInt(0), BigInt(0), BigInt(1));
-    };
+    }
     if (n.eq(1)) {
         return p;
-    };
+    }
     if (n.lesser(0) | n.greaterOrEquals(N)) {
         return jacobianMultiply(p, modulo(n, N), N, A, P);
-    };
+    }
     if (modulo(n, 2).eq(0)) {
         return jacobianDouble(jacobianMultiply(p, n.over(2), N, A, P), A, P);  // bigint division floors result automaticaly
-    };
+    }
     if (modulo(n, 2).eq(1)) {
         return jacobianAdd(jacobianDouble(jacobianMultiply(p, n.over(2), N, A, P), A, P), p, A, P);  // bigint division floors result automaticaly
-    };
+    }
 
     throw new Error("logical failure: p: " + p + ", n: " + n + ", N: " + N + ", A: " + A + ", P: " + P);
 };

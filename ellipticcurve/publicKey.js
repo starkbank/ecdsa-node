@@ -10,7 +10,7 @@ class PublicKey {
     constructor (point, curve) {
         this.point = point;
         this.curve = curve;
-    };
+    }
 
     toString (encoded=false) {
         let xString = BinaryAscii.stringFromNumber(this.point.x, this.curve.length());
@@ -19,21 +19,21 @@ class PublicKey {
             return "\x00\x04" + xString + yString;
         }
         return xString + yString;
-    };
+    }
 
     toDer () {
         let encodeEcAndOid = der.encodeSequence(der.encodeOid([1, 2, 840, 10045, 2, 1]), der.encodeOid(this.curve.oid));
 
         return der.encodeSequence(encodeEcAndOid, der.encodeBitstring(this.toString(true)))
-    };
+    }
 
     toPem () {
         return der.toPem(this.toDer(), "PUBLIC KEY")
-    };
+    }
 
     static fromPem (string) {
         return this.fromDer(der.fromPem(string));
-    };
+    }
 
     static fromDer (string) {
         let result = der.removeSequence(string);
@@ -41,7 +41,7 @@ class PublicKey {
         let empty = result[1];
         if (empty) {
             throw new Error("trailing junk after DER public key: " + BinaryAscii.hexFromBinary(empty));
-        };
+        }
 
         result = der.removeSequence(s1);
         let s2 = result[0];
@@ -55,7 +55,7 @@ class PublicKey {
         empty = result[1];
         if (empty) {
             throw new Error("trailing junk after DER public key objects: " + BinaryAscii.hexFromBinary(empty));
-        };
+        }
 
         let curve = EcdsaCurve.curvesByOid[oidCurve];
         if (!curve) {
@@ -67,17 +67,17 @@ class PublicKey {
                 + ". Only the following are available: "
                 + supportedCurvesNames
             );
-        };
+        }
 
         result = der.removeBitString(pointBitString);
         let pointStr = result[0];
         empty = result[1];
         if (empty) {
             throw new Error("trailing junk after public key point-string: " + BinaryAscii.hexFromBinary(empty));
-        };
+        }
 
         return this.fromString(pointStr.slice(2), curve);
-    };
+    }
 
     static fromString (string, curve=EcdsaCurve.secp256k1, validatePoint=true) {
         let baseLen = curve.length();
@@ -101,8 +101,8 @@ class PublicKey {
             throw new Error("Point (" + p.x + "," + p.y + " * " + curve.name + ".N is not at infinity");
         }
         return publicKey
-    };
-};
+    }
+}
 
 
 exports.PublicKey = PublicKey;

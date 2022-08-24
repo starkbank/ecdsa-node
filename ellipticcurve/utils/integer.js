@@ -1,4 +1,5 @@
 // based on random-number-csprng: https://www.npmjs.com/package/random-number-csprng
+// noinspection JSUnusedLocalSymbols
 
 const BigInt = require("big-integer");
 const crypto = require("crypto");
@@ -50,11 +51,11 @@ function calculateParameters(range) {
 function secureRandomNumber(minimum, maximum) { // bigint, bigint
     if (crypto == null || crypto.randomBytes == null) {
         throw new Error("No suitable random number generator available. Ensure that your runtime is linked against OpenSSL (or an equivalent) correctly.");
-    };
+    }
 
     if (maximum.lesserOrEquals(minimum)) {
         throw new Error("The maximum value must be higher than the minimum value.")
-    };
+    }
 
     /* We hardcode the values for the following:
         *
@@ -66,6 +67,7 @@ function secureRandomNumber(minimum, maximum) { // bigint, bigint
 
     let range = maximum.minus(minimum);
 
+    // eslint-disable-next-line no-unused-vars
     let {bitsNeeded, bytesNeeded, mask} = calculateParameters(range);
 
     let randomBytes = crypto.randomBytes(bytesNeeded);
@@ -106,7 +108,7 @@ function secureRandomNumber(minimum, maximum) { // bigint, bigint
     /* Outside of the acceptable range, throw it away and try again.
         * We don't try any modulo tricks, as this would introduce bias. */
     return secureRandomNumber(minimum, maximum);
-};
+}
 
 
 exports.between = secureRandomNumber;

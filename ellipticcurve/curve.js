@@ -19,7 +19,7 @@ class CurveFp {
         this.name = name;
         this.nistName = nistName;
         this._oid = oid;
-    };
+    }
 
     contains(p) {
         if (p.x < 0 || p.x > this.P.minus(1)) {
@@ -32,16 +32,16 @@ class CurveFp {
             return false;
         }
         return true;
-    };
+    }
 
     length() {
         return Math.floor((1 + this.N.toString(16).length) / 2);
-    };
+    }
 
     get oid() {
         return this._oid.slice();
     }
-};
+}
 
 
 let secp256k1 = new CurveFp(
