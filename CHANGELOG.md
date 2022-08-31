@@ -13,6 +13,8 @@ Given a version number MAJOR.MINOR.PATCH, increment:
 
 
 ## [Unreleased]
+### Fixed
+unset variables on math and der files
 
 ## [1.1.4] - 2021-11-09
 ### Fixed
