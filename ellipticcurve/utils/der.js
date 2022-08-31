@@ -27,7 +27,7 @@ const bytesHexF = Buffer.from(hexF).toString('binary');
 exports.encodeSequence = function () {
     let sequence = [];
     let totalLengthLen = 0;
-    for (i=0; i < arguments.length; i++) {
+    for (let i = 0; i < arguments.length; i++) {
         sequence.push(arguments[i]);
         totalLengthLen += arguments[i].length;
     }
@@ -105,7 +105,7 @@ exports.removeSequence = function (string) {
     let length = result[0];
     let lengthLen = result[1];
 
-    endSeq = 1 + lengthLen + length;
+    let endSeq = 1 + lengthLen + length;
 
     return [string.slice(1 + lengthLen, endSeq), string.slice(endSeq)];
 }
@@ -185,20 +185,20 @@ exports.removeOctetString = function (string) {
     let length = result[0];
     let lengthLen = result[1];
 
-    body = string.slice(1 + lengthLen, 1 + lengthLen + length);
-    rest = string.slice(1 + lengthLen + length);
+    let body = string.slice(1 + lengthLen, 1 + lengthLen + length);
+    let rest = string.slice(1 + lengthLen + length);
 
     return [body, rest];
 }
 
 
 exports.removeConstructed = function (string) {
-    s0 = _extractFirstInt(string);
+    let s0 = _extractFirstInt(string);
     if ((s0 & hex224) != hex129) {
         throw new Error("wanted constructed tag (0xa0-0xbf), got 0x" + s0);
     }
 
-    tag = s0 & hex31
+    let tag = s0 & hex31
     let result = _readLength(string.slice(1));
     let length = result[0];
     let lengthLen = result[1];
@@ -214,8 +214,7 @@ exports.fromPem = function (pem) {
     let split = pem.split("\n");
     let stripped = "";
 
-    let i;
-    for (i = 0; i < split.length; i++) {
+    for (let i = 0; i < split.length; i++) {
         if (!split[i].startsWith("-----")) {
             stripped += split[i].trim();
         }
@@ -227,9 +226,9 @@ exports.fromPem = function (pem) {
 
 exports.toPem = function (der, name) {
     let b64 = Base64.encode(der);
-    lines = [("-----BEGIN " + name + "-----\n")];
+    let lines = [("-----BEGIN " + name + "-----\n")];
 
-    for (start = 0; start <= b64.length; start += 64) {
+    for (let start = 0; start <= b64.length; start += 64) {
         lines.push(b64.slice(start, start + 64) + "\n")
     }
     lines.push("-----END " + name + "-----\n");
@@ -281,7 +280,7 @@ function _encodeNumber (n) {
 
 
 function _readLength (string) {
-    num = _extractFirstInt(string);
+    let num = _extractFirstInt(string);
     if (!(num & hex160)) {
         return [(num & hex127), 1];
     }
