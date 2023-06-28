@@ -28,7 +28,9 @@ class PrivateKey {
     toString () {
         return BinaryAscii.stringFromNumber(this.secret, this.curve.length());
     };
-
+    toHexString () {
+        return this.secret.toString(16);
+    };
     toDer () {
         let encodedPublicKey = this.publicKey().toString(true);
 
