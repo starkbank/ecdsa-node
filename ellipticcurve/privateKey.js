@@ -28,7 +28,9 @@ class PrivateKey {
     toString () {
         return BinaryAscii.stringFromNumber(this.secret, this.curve.length());
     };
-
+    toHexString () {
+        return this.secret.toString(16);
+    };
     toDer () {
         let encodedPublicKey = this.publicKey().toString(true);
 
@@ -105,6 +107,10 @@ class PrivateKey {
 
     static fromString (string, curve=EcdsaCurve.secp256k1) {
         return new PrivateKey(curve, BinaryAscii.numberFromString(string));
+    };
+     // Support for Accepting Secert Key in Hex
+     static fromHexString(string, curve=EcdsaCurve.secp256k1) {
+        return new PrivateKey(curve, BinaryAscii.numberFromHex(string));
     };
 };
 
