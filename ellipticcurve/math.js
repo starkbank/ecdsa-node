@@ -1,7 +1,23 @@
 const Point = require("./point").Point;
 const modulo = require("./utils/integer").modulo;
 const BigInt = require("big-integer");
+const EcdsaMath = require("./math");
+const math = require("../")
 
+var modularSquareRoot = function(value, prime){
+
+    let base = value
+    let exp = (prime + BigInt(1).value) / BigInt(4).value
+    let p = prime
+
+    var result = 1n;
+    while (exp !== 0n) {
+        if (exp % 2n === 1n) result = result * base % p;
+        base = base * base % p;
+        exp >>= 1n;
+    }
+    return result;
+}
 
 var multiply = function (p, n, N, A, P) {
     // Fast way to multily point and scalar in elliptic curves
@@ -184,7 +200,7 @@ var jacobianMultiply = function (p, n, N, A, P) {
     throw new Error("logical failure: p: " + p + ", n: " + n + ", N: " + N + ", A: " + A + ", P: " + P);
 };
 
-
+exports.modularSquareRoot = modularSquareRoot;
 exports.multiply = multiply;
 exports.add = add;
 exports.inv = inv;
