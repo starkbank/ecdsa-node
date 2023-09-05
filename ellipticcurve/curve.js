@@ -7,6 +7,7 @@
 const BigInt = require("big-integer");
 const Point = require("./point").Point;
 const modulo = require("./utils/integer").modulo;
+const EcdsaMath = require("./math");
 
 
 class CurveFp {
@@ -41,6 +42,18 @@ class CurveFp {
     get oid() {
         return this._oid.slice();
     }
+
+    y(x, isEven) 
+    {
+        let ySquared = (((x.value ** BigInt(3).value) % this.P.value) + this.A.value * x.value + this.B.value) % this.P.value
+        let y = EcdsaMath.modularSquareRoot(ySquared, this.P.value)
+        if (isEven != ((y % BigInt(2).value).toString() == "0"))
+        {
+            y = this.P.value - y;
+        }
+        return BigInt(y)
+    }
+
 };
 
 

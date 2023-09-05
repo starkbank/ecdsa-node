@@ -3,6 +3,7 @@ const EcdsaCurve = require("./curve");
 const Point = require("./point").Point;
 const der = require("./utils/der");
 const Math = require("./math");
+const { PrivateKey } = require("..");
 
 
 class PublicKey {
@@ -20,6 +21,19 @@ class PublicKey {
         }
         return xString + yString;
     };
+
+    toCompressed(encoded=false) {
+        let baseLen = this.curve.length();
+
+        if ((this.point.y["value"] % BigInt("2")).toString() == "0")
+        {
+            var parityTag = "02";
+        } else {
+            var parityTag = "03";
+        }
+        let xString = BinaryAscii.hexFromBinary(BinaryAscii.stringFromNumber(this.point.x, baseLen))
+        return parityTag + xString
+    }
 
     toDer () {
         let encodeEcAndOid = der.encodeSequence(der.encodeOid([1, 2, 840, 10045, 2, 1]), der.encodeOid(this.curve.oid));
@@ -101,6 +115,21 @@ class PublicKey {
             throw new Error("Point (" + p.x + "," + p.y + " * " + curve.name + ".N is not at infinity");
         }
         return publicKey
+    };
+
+    static fromCompressed(string, curve=EcdsaCurve.secp256k1)
+    {
+        let parityTag = string.slice(0, 2);
+        let xString = string.slice(2, string.length);
+
+        if (!["02", "03"].includes(parityTag)) 
+        {
+            throw new Error("Compressed string should start with 02 or 03");
+        }
+        let isEven = parityTag == "02"
+        let x = BinaryAscii.numberFromHex(xString)
+        let y = curve.y(x, isEven=isEven)
+        return new PublicKey(new Point(x, y), curve)
     };
 };
 

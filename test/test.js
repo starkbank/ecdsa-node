@@ -137,6 +137,58 @@ describe("PublicKey test", function() {
         });
     });
 });
+
+describe("ComPubKeyTest", function() {
+    describe("#testBatch()", function() {
+        it("should validate publicKey x and y points", function() {
+            this.timeout(10000);
+            for (let i = 0; i < 1000; i++) {
+                let privateKey = new PrivateKey()
+                let publicKey = privateKey.publicKey()
+                let publicKeyString = publicKey.toCompressed()
+                let recoveredPublicKey = PublicKey.fromCompressed(publicKeyString, publicKey.curve)
+
+                assert.equal(publicKey.point.x.value, recoveredPublicKey.point.x.value)
+                assert.equal(publicKey.point.y.value, recoveredPublicKey.point.y.value)
+            }
+        });
+    });
+    describe("#testFromCompressedEven()", function() {
+        it("should validate publicKey from Even compressed", function() {
+            let publicKeyCompressed = "0252972572d465d016d4c501887b8df303eee3ed602c056b1eb09260dfa0da0ab2"
+            let publicKey = PublicKey.fromCompressed(publicKeyCompressed)
+            let publicKey2 = PublicKey.fromPem("\n-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEUpclctRl0BbUxQGIe43zA+7j7WAsBWse\nsJJg36DaCrKIdC9NyX2e22/ZRrq8AC/fsG8myvEXuUBe15J1dj/bHA==\n-----END PUBLIC KEY-----\n")
+
+            assert.equal(publicKey.toPem(), publicKey2.toPem());
+        });
+    });
+    describe("#testFromCompressedOdd()", function() {
+        it("should validate publicKey from Odd compressed", function() {
+            let publicKeyCompressed = "0318ed2e1ec629e2d3dae7be1103d4f911c24e0c80e70038f5eb5548245c475f50"
+            let publicKey = PublicKey.fromCompressed(publicKeyCompressed)
+            let publicKey2 = PublicKey.fromPem("\n-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEGO0uHsYp4tPa574RA9T5EcJODIDnADj1\n61VIJFxHX1BMIg0B4cpBnLG6SzOTthXpndIKpr8HEHj3D9lJAI50EQ==\n-----END PUBLIC KEY-----\n")
+
+            assert.equal(publicKey.toPem(), publicKey2.toPem());
+        });
+    });
+    describe("#testToCompressedEven()", function() {
+        it("should validate publicKey to Even compressed", function() {
+            let publicKey = PublicKey.fromPem("\n-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEUpclctRl0BbUxQGIe43zA+7j7WAsBWse\nsJJg36DaCrKIdC9NyX2e22/ZRrq8AC/fsG8myvEXuUBe15J1dj/bHA==\n-----END PUBLIC KEY-----\n")
+            let publicKeyCompressed = publicKey.toCompressed()
+
+            assert.equal(publicKeyCompressed, "0252972572d465d016d4c501887b8df303eee3ed602c056b1eb09260dfa0da0ab2");
+        });
+    });
+    describe("#testToCompressedOdd()", function() {
+        it("should validate publicKey to Odd compressed", function() {
+            let publicKey = PublicKey.fromPem("-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEGO0uHsYp4tPa574RA9T5EcJODIDnADj1\n61VIJFxHX1BMIg0B4cpBnLG6SzOTthXpndIKpr8HEHj3D9lJAI50EQ==\n-----END PUBLIC KEY-----")
+            let publicKeyCompressed = publicKey.toCompressed()
+
+            assert.equal(publicKeyCompressed, "0318ed2e1ec629e2d3dae7be1103d4f911c24e0c80e70038f5eb5548245c475f50");
+        });
+    });
+});
+
 describe("Signature test", function() {
     describe("#testDerConversion()", function() {
         it("should validate DER signature generation and convertion", function() {
