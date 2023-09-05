@@ -31,7 +31,6 @@ class PublicKey {
         } else {
             var parityTag = "03";
         }
-        
         let xString = BinaryAscii.hexFromBinary(BinaryAscii.stringFromNumber(this.point.x, baseLen))
         return parityTag + xString
     }

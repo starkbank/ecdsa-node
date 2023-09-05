@@ -1,8 +1,6 @@
 const Point = require("./point").Point;
 const modulo = require("./utils/integer").modulo;
 const BigInt = require("big-integer");
-const EcdsaMath = require("./math");
-const math = require("../")
 
 var modularSquareRoot = function(value, prime){
 
