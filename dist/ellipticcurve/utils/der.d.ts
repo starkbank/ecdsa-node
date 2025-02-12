@@ -1,0 +1,15 @@
+import { BigInteger } from "big-integer";
+export declare function encodeSequence(...args: (Buffer | string)[]): Buffer;
+export declare function encodeInteger(x: BigInteger): Buffer;
+export declare function encodeOid(pieces: number[]): Buffer;
+export declare function encodeBitstring(t: Buffer | string): Buffer;
+export declare function encodeOctetString(t: Buffer | string): Buffer;
+export declare function encodeConstructed(tag: number, value: Buffer | string): Buffer;
+export declare function removeSequence(data: Buffer | string): [Buffer, Buffer];
+export declare function removeInteger(data: Buffer | string): [BigInteger, Buffer];
+export declare function removeObject(data: Buffer | string): [number[], Buffer];
+export declare function removeBitString(data: Buffer | string): [Buffer, Buffer];
+export declare function removeOctetString(data: Buffer | string): [Buffer, Buffer];
+export declare function removeConstructed(data: Buffer | string): [number, Buffer, Buffer];
+export declare function fromPem(pem: string): Buffer;
+export declare function toPem(der: Buffer | string, name: string): string;

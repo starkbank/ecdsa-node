@@ -1,164 +1,76 @@
-## A lightweight and fast ECDSA implementation
+# ECDSA Node TypeScript
 
-### Overview
+A TypeScript implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA).
 
-This is a pure JS implementation of the Elliptic Curve Digital Signature Algorithm. It is compatible with OpenSSL and uses elegant math such as Jacobian Coordinates to speed up the ECDSA on pure JS.
+## Features
 
-### Installation
+- Full TypeScript support with type definitions
+- OpenSSL-compatible implementation
+- Fast and efficient using Jacobian coordinates
+- Supports secp256k1 and prime256v1 (P-256) curves
+- Comprehensive test suite
 
-To install StarkBank`s ECDSA for Node JS, run:
+## Installation
 
-```sh
-npm install starkbank-ecdsa
+```bash
+npm install ecdsa-node-ts
+# or
+yarn add ecdsa-node-ts
 ```
 
-### Curves
+## Usage
 
-We currently support `secp256k1`, but it's super easy to add more curves to the project. Just add them on `curve.js`
+```typescript
+import { PrivateKey, Ecdsa } from "ecdsa-node-ts";
 
-### Speed
+// Generate new private key
+const privateKey = new PrivateKey();
 
-We ran a test on Node 13.1.0 on a MAC Pro i5 2019. The libraries ran 100 times and showed the average times displayed bellow:
+// Get public key
+const publicKey = privateKey.publicKey();
 
-| Library            | sign          | verify  |
-| ------------------ |:-------------:| -------:|
-| [crypto]           |     0.5ms     |  1.0ms  |
-| starkbank-ecdsa    |     6.3ms     | 15.0ms  |
+// Create message
+const message = "My message";
 
+// Create signature
+const signature = Ecdsa.sign(message, privateKey);
 
-### Sample Code
-
-How to sign a json message for [Stark Bank]:
-
-```js
-var ellipticcurve = require("starkbank-ecdsa");
-var Ecdsa = ellipticcurve.Ecdsa;
-var PrivateKey = ellipticcurve.PrivateKey;
-
-// Generate privateKey from PEM string
-var privateKey = PrivateKey.fromPem("-----BEGIN EC PARAMETERS-----\nBgUrgQQACg==\n-----END EC PARAMETERS-----\n-----BEGIN EC PRIVATE KEY-----\nMHQCAQEEIODvZuS34wFbt0X53+P5EnSj6tMjfVK01dD1dgDH02RzoAcGBSuBBAAK\noUQDQgAE/nvHu/SQQaos9TUljQsUuKI15Zr5SabPrbwtbfT/408rkVVzq8vAisbB\nRmpeRREXj5aog/Mq8RrdYy75W9q/Ig==\n-----END EC PRIVATE KEY-----\n");
-
-// Create message from json
-let message = JSON.stringify({
-    "transfers": [
-        {
-            "amount": 100000000,
-            "taxId": "594.739.480-42",
-            "name": "Daenerys Targaryen Stormborn",
-            "bankCode": "341",
-            "branchCode": "2201",
-            "accountNumber": "76543-8",
-            "tags": ["daenerys", "targaryen", "transfer-1-external-id"]
-        }
-    ]
-});
-
-signature = Ecdsa.sign(message, privateKey);
-
-// Generate Signature in base64. This result can be sent to Stark Bank in header as Digital-Signature parameter
-console.log(signature.toBase64());
-
-// To double check if message matches the signature
-let publicKey = privateKey.publicKey();
-
-console.log(Ecdsa.verify(message, signature, publicKey));
+// Verify signature
+const verified = Ecdsa.verify(message, signature, publicKey);
+console.log(verified); // true
 ```
 
-Simple use:
+### Working with PEM files
 
-```js
-var ellipticcurve = require("starkbank-ecdsa");
-var Ecdsa = ellipticcurve.Ecdsa;
-var PrivateKey = ellipticcurve.PrivateKey;
+```typescript
+// Import keys from PEM
+const privateKeyPem = File.read("privateKey.pem");
+const privateKey = PrivateKey.fromPem(privateKeyPem);
 
-// Generate new Keys
-let privateKey = new PrivateKey();
-let publicKey = privateKey.publicKey();
+const publicKeyPem = File.read("publicKey.pem");
+const publicKey = PublicKey.fromPem(publicKeyPem);
 
-let message = "My test message";
-
-// Generate Signature
-let signature = Ecdsa.sign(message, privateKey);
-
-// Verify if signature is valid
-console.log(Ecdsa.verify(message, signature, publicKey));
+// Export keys to PEM
+const pemPrivate = privateKey.toPem();
+const pemPublic = publicKey.toPem();
 ```
 
-### OpenSSL
+## Development
 
-This library is compatible with OpenSSL, so you can use it to generate keys:
+```bash
+# Install dependencies
+yarn install
 
-```
-openssl ecparam -name secp256k1 -genkey -out privateKey.pem
-openssl ec -in privateKey.pem -pubout -out publicKey.pem
-```
+# Build
+yarn build
 
-Create a message.txt file and sign it:
+# Run tests
+yarn test
 
-```
-openssl dgst -sha256 -sign privateKey.pem -out signatureDer.txt message.txt
-```
-
-To verify, do this:
-
-```js
-var ellipticcurve = require("starkbank-ecdsa");
-var Ecdsa = ellipticcurve.Ecdsa;
-var Signature = ellipticcurve.Signature;
-var PublicKey = ellipticcurve.PublicKey;
-var File = ellipticcurve.utils.File;
-
-let publicKeyPem = File.read("publicKey.pem");
-let signatureDer = File.read("signatureDer.txt", "binary");
-let message = File.read("message.txt");
-
-let publicKey = PublicKey.fromPem(publicKeyPem);
-let signature = Signature.fromDer(signatureDer);
-
-console.log(Ecdsa.verify(message, signature, publicKey));
+# Clean build files
+yarn clean
 ```
 
-You can also verify it on terminal:
+## License
 
-```
-openssl dgst -sha256 -verify publicKey.pem -signature signatureDer.txt message.txt
-```
-
-NOTE: If you want to create a Digital Signature to use in the [Stark Bank], you need to convert the binary signature to base64.
-
-```
-openssl base64 -in signatureDer.txt -out signatureBase64.txt
-```
-
-You can do the same with this library:
-
-```js
-var ellipticcurve = require("starkbank-ecdsa");
-var Signature = ellipticcurve.Signature;
-var File = ellipticcurve.utils.File;
-
-let signatureDer = File.read("signatureDer.txt", "binary");
-
-let signature = Signature.fromDer(signatureDer);
-
-console.log(signature.toBase64());
-```
-
-[Stark Bank]: https://starkbank.com
-
-### Run all unit tests
-Run tests in [Mocha framework]
-
-```sh
-node test
-```
-
-or
-
-```sh
-./node_modules/mocha/bin/mocha
-```
-
-[Mocha framework]: https://mochajs.org/#getting-started
-[crypto]: https://nodejs.org/api/crypto.html
-[ecdsa]: https://www.npmjs.com/package/ecdsa
+MIT License

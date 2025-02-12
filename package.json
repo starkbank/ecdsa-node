@@ -1,39 +1,46 @@
 {
-  "name": "starkbank-ecdsa",
-  "version": "1.1.5",
-  "description": "fast openSSL-compatible implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA)",
-  "main": "index.js",
+  "name": "ecdsa-node-ts",
+  "version": "1.0.0",
+  "description": "TypeScript implementation of the Elliptic Curve Digital Signature Algorithm (ECDSA)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "directories": {
-    "lib": "ellipticcurve",
+    "lib": "src/ellipticcurve",
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "tsc && mocha dist/test",
+    "clean": "rm -rf dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/starkbank/ecdsa-node.git"
+    "url": "git+https://github.com/quartoavista/ecdsa-node-ts.git"
   },
   "keywords": [
     "ecdsa",
     "signature",
+    "typescript",
     "fast",
     "jacobian",
-    "stark",
-    "starkbank",
     "openbanking"
   ],
-  "author": "Stark Bank",
-  "license": "MIT License",
+  "author": "quartoavista",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/starkbank/ecdsa-node/issues"
+    "url": "https://github.com/quartoavista/ecdsa-node-ts/issues"
   },
-  "homepage": "https://github.com/starkbank/ecdsa-node#readme",
+  "homepage": "https://github.com/quartoavista/ecdsa-node-ts#readme",
   "dependencies": {
     "big-integer": "^1.6.48",
     "js-sha256": "^0.9.0"
   },
   "devDependencies": {
-    "mocha": "^9.1.3"
+    "@types/big-integer": "^0.0.35",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.13.1",
+    "mocha": "^9.1.3",
+    "typescript": "^5.7.3"
   }
 }
